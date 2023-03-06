@@ -8,7 +8,7 @@
     "start": "node -r esm src/index.js"
   },
   "author": "",
-  "license": "ISC",
+  "license": "UNLICENSED",
   "dependencies": {
     "esm": "^3.2.25",
     "express": "^4.18.2",

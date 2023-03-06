@@ -1,7 +1,7 @@
 import { expressjwt } from "express-jwt";
 import jwks from "jwks-rsa";
 
-export const addEndingSlash = (url) => `${url}${url?.endsWith("/") ? "" : "/"}`;
+export const addEndingSlash = (url) => url ? `${url}${url.endsWith("/") ? "" : "/"}` : "/";
 
 export const jwtCheck = expressjwt({
   secret: jwks.expressJwtSecret({

@@ -5,6 +5,7 @@ import mongoose from "mongoose";
 // import ora from "ora";
 import app from "./app.js";
 import { initData } from "./items/itemRouter.js";
+import "dotenv-defaults/config"
 
 // Inject environment variables defined in the `.env` file placed at the root of the project.
 dotenv.config();
