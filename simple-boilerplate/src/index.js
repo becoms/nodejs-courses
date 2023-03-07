@@ -15,12 +15,14 @@ const app = express();
 // app.use(helmet());
 
 // Allow express to parse JSON bodies.
-app.use(express.json({
-    limit: "1mb", // default is too small (100kb), increase it for base64 payloads
-}));
+// app.use(express.json({
+//     limit: "1mb", // default is too small (100kb), increase it for base64 payloads
+// }));
 
-app.enable("trust proxy");
+// app.enable("trust proxy");
+
 // Our application routes:
+
 app.use("/v1/shoes", ShoesRouter);
 
 
