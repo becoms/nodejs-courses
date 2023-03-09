@@ -27,11 +27,7 @@ ItemRouter.route("/")
   });
 
 ItemRouter.param("id", validateObjectId).param("id", async (req, res, next, value, name) => {
-  const { select, populate } = req.query;
-  const test = await Item.findById(value).select(select).populate(populate);
-  if (test === null) {
-    throw Boom.notFound(`${Item.modelName} with \`${name}\` matching \`${value}\` not found.`);
-  }
+  const test = await Item.findById(value);
   res.locals.test = test;
   return next();
 });

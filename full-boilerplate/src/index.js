@@ -2,7 +2,6 @@ import dotenv from "dotenv";
 import { createTerminus, HealthCheckError } from "@godaddy/terminus";
 import http from "http";
 import mongoose from "mongoose";
-// import ora from "ora";
 import app from "./app.js";
 import { initData } from "./items/itemRouter.js";
 import "dotenv-defaults/config"
@@ -10,9 +9,7 @@ import "dotenv-defaults/config"
 // Inject environment variables defined in the `.env` file placed at the root of the project.
 dotenv.config();
 
-/** @type {(url: string, options: mongoose.ConnectionOptions) => Promise<void>} */
 const connectToDatabase = async (url, options) => {
-  // const spinner = ora(`Connecting to database "${url}"`).start();
   console.log(`Connecting to database "${url}"`);
   try {
     await mongoose.connect(url, {
@@ -22,7 +19,6 @@ const connectToDatabase = async (url, options) => {
       // Allow the MongoDB driver to periodically check for changes in a MongoDB shared cluster.
       // See: https://mongoosejs.com/docs/deprecations.html#useunifiedtopology
       useUnifiedTopology: true,
-
       ...options,
     });
     console.log(`Connected to database "${url}"`);
@@ -32,7 +28,6 @@ const connectToDatabase = async (url, options) => {
   }
 };
 
-/** @type {(server: http.Server, options: import('net').ListenOptions) => Promise<void>} */
 const startHTTPServer = async (server, options) => {
   const address = `http://${options.host}:${options.port}`;
   console.log(`Starting HTTP server on "${address}"`);

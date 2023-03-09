@@ -16,12 +16,8 @@ import { validationErrorHandler } from "./utils/validationErrorHandler.js";
 
 const app = express();
 
-/* istanbul ignore next */
 if (process.env.NODE_ENV !== "production" && process.env.NODE_ENV !== "test") {
   // These middlewares are added for development purposes.
-  // Depending on the use case, you can move these middleware outside of this `if` block or
-  // you can edit your HTTP server (e.g.: Apache, NGINX, etc.) to handle the following cases:
-
   // Log HTTP requests
   app.use(morgan("dev"));
 }
@@ -45,9 +41,13 @@ app.use(express.json({
   limit: "1mb", // default is too small (100kb), increase it for base64 payloads
 }));
 
-// Enable if you're behind a reverse proxy (Heroku, Bluemix, AWS ELB, Nginx, etc)
-// see https://expressjs.com/en/guide/behind-proxies.html
-app.enable("trust proxy");
+app.use(
+  express.urlencoded({
+    limit: "50mb",
+    parameterLimit: 100000,
+    extended: true,
+  })
+);
 
 // Limit request rate on API, `windowMs` and `max` can be adjusted to match the desired rate.
 // see https://github.com/nfriedly/express-rate-limit for more information
@@ -60,7 +60,7 @@ app.use(
 );
 
 // JWT authentication
-app.use(jwtCheck);
+// app.use(jwtCheck);
 
 // Our application routes:
 app.use("/v1/item", ItemRouter);

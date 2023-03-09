@@ -1,18 +1,16 @@
-let express,shoesList;_cbb‍.x([["ShoesRouter",()=>ShoesRouter]]);_cbb‍.w("express",[["default",["express"],function(v){express=v}]]);_cbb‍.w("./shoesList",[["shoesList",["shoesList"],function(v){shoesList=v}]]);
-
+import express from "express";
+import { shoesList } from "./shoesList.js";
 
 const ShoesRouter = express.Router();
 
 ShoesRouter.route("/")
-    .get(async (req, res) => {
+    .get(async (req, res) => { 
         // const { limit = 20, skip = 0, sort = "_id", ...filter } = req.query;
         res.set("X-Total-Count", shoesList.length);
         return res.json(shoesList);
     })
     .post(async (req, res) => {
-        const test = new Shoes(sanitize(req.body));
-        await test.save();
-        return res.status(201).json(test);
+        return res.status(201).json(req.body);
     });
 
 ShoesRouter.route("/:id")
@@ -34,11 +32,9 @@ ShoesRouter.route("/:id")
             ...req.body
         });
     })
-    .delete(async (req, res) => {
-        const test = await Shoes.findById(value).select(select).populate(populate);
-        await test.remove();
+    .delete(async (_, res) => {
         return res.sendStatus(204);
     });
 
 
-
+export { ShoesRouter };
